@@ -7,16 +7,45 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 
-    private BufferedImage image;
-    private TileType                type;
+    private int x;
+    private int y;
 
-    protected Tile(BufferedImage image, int scale, TileType type) {
+    private BufferedImage image;
+    private TileType      type;
+
+    public Tile(BufferedImage image, int scale, TileType type, int x, int y) {
         this.type = type;
         this.image = Utils.resize(image, image.getWidth()*scale, image.getHeight()*scale);
+        this.x = x;
+        this.y = y;
     }
 
-    protected void render(Graphics2D g, int x, int y) {
+    public void render(Graphics2D g) {
         g.drawImage(image, x, y, null);
+    }
+
+    public int getWidth() {
+        return image.getWidth();
+    }
+
+    public int getHeight() {
+        return image.getHeight();
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public TileType type() {

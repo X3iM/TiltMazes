@@ -1,12 +1,20 @@
 package com.tilemazes.display;
 
+import com.tilemazes.core.Game;
+import com.tilemazes.core.MovableController;
 import com.tilemazes.input.Input;
+import com.tilemazes.utils.ResourceLoader;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Display {
@@ -25,6 +33,7 @@ public class Display {
     //private static float delta = 0;
 
     public static void create(int weight, int height, String title, int _clearColor, int numBuffer) {
+
 
         if (created)
             return;
@@ -52,13 +61,40 @@ public class Display {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+        //    window.setContentPane(new JLabel(new ImageIcon(ResourceLoader.loadImage("res/images/background.png"))));
+
+        //JLabel background=new JLabel(new ImageIcon(ResourceLoader.loadImage("res/images/background.png")));
+        //window.add(background);
+        //background.setLayout(new FlowLayout());
+
+        //window.setContentPane(new JLabel(new ImageIcon(ResourceLoader.loadImage("res/images/finish.png"))));
+        //window.setLayout(new FlowLayout());
+
+//        window.addKeyListener(new KeyListener() {
+//            @Override
+//            public void keyTyped(KeyEvent e) {}
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+//                    window.dispose();
+//                    Thread.getAllStackTraces().forEach((thread, stackTraceElements) -> thread.interrupt());
+//                    System.out.println("escape");
+//                }
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {}
+//        });
+
         buffer = new BufferedImage(weight, height, BufferedImage.TYPE_INT_ARGB);
         bufferData = ((DataBufferInt) buffer.getRaster().getDataBuffer()).getData();
         bufferGraphics = buffer.getGraphics();
 
         ( (Graphics2D) bufferGraphics ).setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON );
+                RenderingHints.VALUE_ANTIALIAS_ON
+        );
 
         clearColor = _clearColor;
 
@@ -73,7 +109,9 @@ public class Display {
     }
 
     public static void swapBuffer() {
-        Graphics g = bufferStrategy.getDrawGraphics();
+        if (!created)
+            return;
+                Graphics g = bufferStrategy.getDrawGraphics();
         g.drawImage(buffer, 0, 0, null);
         bufferStrategy.show();
     }
@@ -95,6 +133,10 @@ public class Display {
 
     public static void addInputListener(Input inputListener) {
         window.add(inputListener);
+    }
+
+    public static void addKeyListener(KeyListener movableController) {
+        window.addKeyListener(movableController);
     }
 
     /*

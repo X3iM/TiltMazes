@@ -2,7 +2,7 @@ package com.tilemazes.core.level;
 
 public enum TileType {
 
-    EMPTY(0), WALL(1);
+    HOLE(0), WALL(1), FINISH(2);
 
     private int n;
 
@@ -15,10 +15,12 @@ public enum TileType {
     }
 
     public static TileType fromNumeric(int n) {
+        if (n == 0)
+            return HOLE;
         if (n == 1)
             return WALL;
 
-        return EMPTY;
+        return FINISH;
     }
 
 }

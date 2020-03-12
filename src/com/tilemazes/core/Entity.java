@@ -19,6 +19,7 @@ public abstract class Entity {
 
     public abstract void render(Graphics2D g);
 
+    public abstract boolean intersects();
 //    protected boolean canMove(float newX, float newY, float centerX, float centerY, float bottomX, float bottomY) {
 //        int tileX = (int) (newX / Level.SCALED_TILE_SIZE);
 //        int tileY = (int) (newY / Level.SCALED_TILE_SIZE);

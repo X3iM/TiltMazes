@@ -8,4 +8,8 @@ public class Time {
         return  System.nanoTime();
     }
 
+    public static float getSecond() {
+        return (float) System.nanoTime()/SECOND;
+    }
+
 }
